@@ -1,0 +1,62 @@
+#include "pch.h"
+#include <iostream>
+#include <stdlib.h>
+#include <math.h>
+using namespace std;
+
+int main()
+{
+	system("chcp 1251");
+	int NumK;
+	cout << "Въведи броя на окръжностите ";
+	cin >> NumK;
+	int* Kx;
+	Kx = new int[NumK];
+	int* Ky;
+	Ky = new int[NumK];
+	int* KR;
+	KR = new int[NumK];
+	for (int i = 0; i < NumK; i++)
+	{
+		cout << "Въведи x[" << i + 1 << "]=";
+		cin >> Kx[i];
+		cout << "Въведи y[" << i + 1 << "]=";
+		cin >> Ky[i];
+		cout << "Въведи R[" << i + 1 << "]=";
+		cin >> KR[i];
+	}
+	int NumPoints;
+	cout << "Въведи броя на точките(не повече от 20 точки) ";
+	cin >> NumPoints;
+	int* PointX;
+	PointX = new int[NumPoints];
+	int* PointY;
+	PointY = new int[NumPoints];
+	cout << "Въведи кординатите на точките\n";
+	for (int j = 0; j < NumPoints; j++)
+	{
+		cout << "Въведи X[" << j + 1 << "]=";
+		cin >> PointX[j];
+		cout << "Въведи Y[" << j + 1 << "]=";
+		cin >> PointY[j];
+	}
+	float L; //L- дължина
+	for (int j = 0; j < NumPoints; j++)
+	{
+		bool isPointInsideAnyCircle = false;
+		for (int i = 0; i < NumK; i++)
+		{
+			L = sqrt((Kx[i] - PointX[j]) * (Kx[i] - PointX[j]) + (Ky[i] - PointY[j]) * (Ky[i] - PointY[j]));
+			if (L<=KR[i])
+			{
+				isPointInsideAnyCircle = true;
+				break;
+			}
+		}
+		if (!isPointInsideAnyCircle)//Ако isPointInsideAnyCircle = false точката е извън окръжността 
+		{
+			cout << "Точка X=" << PointX[j] << ", Y=" << PointY[j] << " е извън всички окръжности"<< endl;
+		}
+	}
+	return 0;
+}
