@@ -1,0 +1,49 @@
+#include "pch.h"
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+int main()
+{
+	system("chcp 1251");
+	int Rows, Columns;
+	cout << "Въведи броя на редовете:";
+	cin >> Rows;
+	cout << "Въведи броя на стълбовете:";
+	cin >> Columns;
+	int** ArrA = new int*[Rows];
+	for (int i = 0; i < Rows; i++)
+	{
+		ArrA[i] = new int[Columns];
+		for (int y = 0; y < Columns; y++)
+		{
+			cout << "Въведи a[" << i+1 << "][" << y + 1 << "]=";
+			cin >> ArrA[i][y];
+		}
+	}
+	cout << "Въведи интервала [p,q]\n";
+	int p, q;
+	cout << "Въведи p ";
+	cin >> p;
+	cout << "Въведи q ";
+	cin >> q;
+	int sizeNewArrW = (q - p) + 1;
+	float* newArrW = new float[sizeNewArrW];
+	float Sum = 0;
+	float average;
+	for (int i = p-1; i <q ; i++)
+	{
+		for (int y = 0; y < Columns; y++)
+			{
+				Sum += ArrA[y][i];
+			}
+		average = Sum / Columns;
+		Sum = 0;
+		newArrW[i] = average;
+	}
+	for (int i = p-1; i < q ; i++)
+	{
+		cout << newArrW[i] << endl;
+	}
+	return 0;
+}
