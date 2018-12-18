@@ -1,0 +1,32 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	cout << "Enter string";
+	string value;
+	cin >> value;
+	int br = 0;
+	int max = 0;
+	char element;
+	for (int i = 0; i < value.size(); i++)
+	{
+		for (int j = i+1; j < value.size(); j++)
+		{
+			if (value.at(i) == value.at(j))
+			{
+				br++;
+			}
+		}
+		if (br>max)
+		{
+			max = br;
+			element = value.at(i);
+		}
+	}
+	cout << element <<endl;
+	return 0;
+}
+
