@@ -1,0 +1,69 @@
+#include "stdafx.h"
+#include "stdlib.h"
+#include "iostream"
+using namespace std;
+
+double S (double a, double b, double c)
+{
+	double p = (a + b + c) / 2;
+	double S = sqrt(p*(p - a)*(p - b)*(p - c));
+	return S;
+}
+
+double S(double a, double b)
+{
+	double S = (a*b) / 2;
+	return S;
+}
+
+struct Triangle
+{
+	double x, y, z;
+};
+struct RectTriangle
+{
+	double x, y;
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	Triangle A[10];
+	RectTriangle B[10];
+	int n,m;
+	cout << "Insert N=";
+	cin >> n;
+	cout << "Insert M=";
+	cin >> m;
+	for (int i = 0; i < n; i++)
+	{
+		cout << i << " - Triangle: ";
+		cin >> A[i].x >> A[i].y >> A[i].z;
+	}
+	for (int k = 0; k < m; k++)
+	{
+		cout << k << " - Triangle: ";
+		cin >> B[k].x >> B[k].y;
+	}
+	double Max=0;
+	for (int i = 0; i < n; i++)
+	{
+		double aery;
+		aery= S(A[i].x, A[i].y, A[i].z);
+		if (Max<aery)
+		{
+			Max = aery;
+		}
+	}
+	for (int k = 0; k < m; k++)
+	{
+		double aery;
+		aery = S(B[k].x, B[k].y);
+		if (Max<aery)
+		{
+			Max = aery;
+		}
+	}
+	cout << Max<<endl;
+	return 0;
+}
+
