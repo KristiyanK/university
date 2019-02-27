@@ -1,0 +1,112 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+using namespace std;
+
+class CBook{
+private:
+	int invNum;
+	string Author;
+	string title;
+	int pages;
+	float price;
+public:
+	void getData();
+	void display();
+	string getAuthor(){ return Author; }
+	string getTitle(){ return title; }
+	float getPrice(){ return price; }
+};
+
+
+void CBook::getData(){
+	cout << "Insert inventar number ";
+	cin >> invNum;
+	cin.ignore();
+	cout << "Insert Author ";
+	getline(cin, Author);
+	cout << "Insert title ";
+	getline(cin, title);
+	cout << "Insert pages ";
+	cin >> pages;
+	cout << "Insert price ";
+	cin >> price;
+}
+
+void CBook::display(){
+	cout << "Inventar number is " << invNum << endl;
+	cout << "Author: " << Author << endl;
+	cout << "Title: " << title << endl;
+	cout << "Pages: " << pages << endl;
+	cout << "Price: " << price << endl;
+}
+
+int main()
+{
+	CBook * B[20];
+	int n = 0;
+	int ans;
+	float sum;
+	string author;
+	string T[20];
+	int k;
+	do
+	{
+		cout << "Menu: " << endl;
+		cout << "1- add data for book"<<endl;
+		cout << "2- display data for all books"<<endl;
+		cout << "3- all books prices" << endl;
+		cout << "4- all books for 1 author" << endl;
+		cout << "5- cheap books" << endl;
+		cout << "Insert: "; cin >> ans; cin.ignore();
+		switch (ans){
+		case 1:
+			B[n] = new CBook;
+			B[n]->getData();
+			n++;
+			break;
+		case 2:
+			for (int i = 0; i < n; i++)
+			{
+				B[i]->display();
+			}
+			break;
+		case 3:
+			sum = 0;
+			for (int i = 0; i < n; i++)
+			{
+				sum = B[i]->getPrice() + sum;
+			}
+			cout << sum <<endl;
+			break;
+		case 4:
+			cout << "Insert author: "; getline(cin, author);
+			for (int i = 0; i < n; i++)
+			{
+				if (author==B[i]->getAuthor())
+				{
+					B[i]->display();
+				}
+			}
+			break;
+		case 5:
+			k = 0;
+			for (int i = 0; i < n; i++)
+			{
+				if (B[i]->getPrice()<=15)
+					T[k++] = B[i]->getTitle();
+				
+			}
+			cout << "Cheap books ";
+			for (int i = 0; i < k; i++)
+			{
+				cout << T[i] << ", ";
+			}
+			cout << endl;
+			break;
+		}
+	} while (ans !=0);
+	for (int i = 0; i < n; i++){
+		delete B[i];
+	}
+}
