@@ -1,0 +1,168 @@
+#include "stdafx.h"
+#include "iostream"
+#include "string"
+using namespace std;
+
+class CWorkers
+{
+public:
+	void getData();
+	void display();
+	string getEGN(){ return EGN; }
+	double getMoney(){ return Money; }
+	double getDays(){ return days; }
+	string getName(){ return name; }
+	double fullSalary();
+
+private:
+	string name;
+	string EGN;
+	double Money;
+	int days;
+};
+
+void CWorkers::getData(){
+	
+	cout << "Insert name: "; 
+	getline(cin, name); 
+	cout << "Insert ID: ";
+	getline(cin, EGN); 
+	cout << "Insert money they get: ";
+	cin >> Money;
+	cout << "Insert days: ";
+	cin >> days;
+}
+
+void CWorkers::display(){
+	cout << "Name: " << name << endl;
+	cout << "ID: " << EGN << endl;
+	cout << "Money: " << Money << endl;
+	cout << "Days work: " << days << endl;
+}
+
+double CWorkers::fullSalary(){
+	return getMoney()*getDays();
+}
+
+class Firm
+{
+public:
+	void createFirm(){
+		n = 0;
+	}
+	void addData();
+	void showData();
+	void showDataForEGN();
+	void showAllSalaries();
+	void showNameWorkers10Days();
+
+private:
+	CWorkers * B[20];
+	int n;
+};
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	CWorkers *B[20];
+	F.createFirm();
+	int n = 0;
+	int ans;
+	string id;
+	double sum=0;
+	int k = -1;
+	do
+	{
+		cout << "Menu:"<<endl;
+		cout << "0- Exit" << endl;
+		cout << "1- Insert worker"<<endl;
+		cout << "2- Get data for all workers"<<endl;
+		cout << "3- Data for worker from ID" << endl;
+		cout << "4- Pay for all workers" << endl;
+		cout << "5- workers with more than 10 days" << endl;
+		cin >> ans; cin.ignore();
+		switch (ans)
+		{
+		case 1:
+			B[n] = new CWorkers;
+			B[n]->getData();
+			n++;
+			break;
+		case 2:
+			for (int i = 0; i < n; i++)
+			{
+				B[i]->display();
+			}
+			break;
+		case 3:
+			cout << "Insert ID: "; getline(cin, id);
+			for (int i = 0; i < n; i++)
+			{
+				if (id ==B[i]->getEGN())
+				{
+					B[i]->display();
+				}
+			}
+			break;
+		case 4:
+			sum = 0;
+			for (int i = 0; i < n; i++)
+			{
+				sum = sum +B[i]-> fullSalary();
+			}
+			cout << "Sum for all workers: " << sum;
+			break;
+		case 5:
+			for (int i = 0; i < n; i++)
+			{
+				if (B[i]->getDays()>10)
+				{
+					cout <<B[i]-> getName()<<endl;
+				}
+			}
+			break;
+		case 6:
+			cout << "Delete worker by ID: ";
+			cin >> id;
+			for (int i = 0; i < n; i++)
+			{
+				if (id == B[i]->getEGN())
+				{
+					k = i;
+				}
+			}
+			if (k!=-1)
+			{
+				delete B[k];
+			}
+			for (int i = k; i < n; i++)
+			{
+				B[i] = B[i - 1]; 
+			}
+			n--;
+			break;
+		case 7:
+			for (int i = 0; i < n-1; i++)
+			{
+				for (int j = 0; j < n-1; j++)
+				{
+					if (B[j]->fullSalary()>B[j+1]->fullSalary())
+					{
+						CWorkers *t = B[j];
+						B[j] = B[j + 1];
+						B[j + 1] = t;
+					}
+				}
+			}
+		}
+		
+
+	} while (ans!=0);
+	for (int i = 0; i < n; i++)
+	{
+		delete B[i];
+	}
+
+	return 0;
+}
+
