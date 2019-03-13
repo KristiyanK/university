@@ -1,0 +1,103 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CStudent{
+public:
+	void getData();
+	void display();
+	string getBirthDay();
+	string getEGN(){ return EGN; };
+	int getCount(){ return count; };
+	int genderChek(){ return (EGN[8] - '0') % 2; }
+	CStudent();
+	CStudent(string, string, int, int[]);
+	~CStudent();
+	
+
+private:
+	string EGN;
+	string name;
+	int course;
+	int marks[5];
+	int static count;
+};
+
+int CStudent::count = 0;
+
+CStudent::CStudent(){
+	cout << "CStudent: constructor!"<<endl;
+	course = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		marks[i] = 0;
+	}
+	count++;
+}
+
+CStudent::CStudent(string name, string EGN, int course, int marks[]){
+	cout << "CStudent: constructor with arguments!" << endl;
+	this->name = name;
+	this->EGN = EGN;
+	this->course = course;
+	for (int i = 0; i < 5; i++)
+	{
+		this->marks[i] = marks[i];
+	}
+	count++;
+}
+
+CStudent::~CStudent(){
+	cout << "Distructor" << endl;
+	count--;
+}
+
+void CStudent::getData(){
+	cout << "Insert name" << endl;
+	cin >> name;
+	cout << "Insert EGN" << endl;
+	cin >> EGN;
+	cout << "Insert course" << endl;
+	cin >> course;
+	for (int i = 0; i < 5; i++){
+		cout << "Insert mark-" << i << ": " << endl;
+		cin >> marks[i];
+	}
+	cin.ignore();
+}
+
+void CStudent::display(){
+	cout << "Name " << name << endl;
+	cout << "EGN" << EGN << endl;
+	cout << "Course" << course << endl;
+	cout << "Marks: ";
+		for (int i = 0; i < 5; i++)
+		{
+			cout << marks[i] << " ";
+		}
+		cout << endl;
+}
+
+string CStudent::getBirthDay(){
+	int y = stoi(EGN.substr(0, 2));
+	int m = atoi(EGN.substr(2, 2).c_str());
+	int d = atoi(EGN.substr(4, 2).c_str());
+	if (m>40)
+	{
+		m -= 40;
+		y += 100;
+	}
+	return to_string(d) + "/" + to_string(m) + "/" + to_string(y);
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	CStudent T;
+	T.getData();
+	T.display();
+	cout << T.getBirthDay();
+	T.genderChek();
+	return 0;
+}
+
