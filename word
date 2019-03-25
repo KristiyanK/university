@@ -1,0 +1,27 @@
+#include "pch.h"
+#include <iostream>
+#include <conio.h>
+#include <string>
+using namespace std;
+
+int main()
+{
+	string value;
+	cin >> value;
+	int k = 1;
+	int sum = 0;
+	for (int i = 0; i < value.size(); i++)
+	{
+		sum = sum+(value.at(i) - 'a' + 1)*k;
+		k = k * 2;
+	}
+	if (sum%2==0)
+	{
+		cout << "yes " << sum<<endl;
+	}
+	else
+	{
+		cout << "No" << endl;
+	}
+	return 0;
+}
