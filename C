@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "stdafx.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -7,24 +7,24 @@ int main()
 {
 	string value;
 	string newValue;
-	int k = 0;
-	cin>>value;
+	cin >> value;
 	int n = value.size();
 	for (int i = 0; i < n; i++)
 	{
-		
-			if (value.at(i) == 'R' && value.at(i+1) == 'U' || value.at(i) == 'U' && value.at(i+1) == 'R')
+		if (i < n - 1){
+			if (value.at(i) == 'R' && value.at(i + 1) == 'U' || value.at(i) == 'U' && value.at(i + 1) == 'R')
 			{
 				newValue = newValue + 'D';
 				i++;
 			}
-			
 			else
 			{
-			newValue+=value.at(i) ;
+				newValue += value.at(i);
 			}
-		
+		}
+		else newValue += value.at(i);
 	}
-	cout << newValue;
+	cout << newValue<<endl;
+	return 0; 
 }
 
