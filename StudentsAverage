@@ -1,0 +1,55 @@
+#include "stdafx.h"
+#include "iostream"
+#include "string"
+using namespace std;
+
+struct st_Name{
+string st_name;
+int ocenka[10];
+float sr_uspeh;
+};
+
+void RazmSort(st_Name *x, int n)
+{
+int i, k, right=n-1; st_Name y;
+while ( right>0){
+	k=0;
+		for (i=0; i<right; i++)
+			if (x[i+1].sr_uspeh<x[i].sr_uspeh) {
+			y=x[i]; 
+			x[i]=x[i+1]; 
+			x[i+1]=y; 
+			k=i;
+		}
+		right=k;
+	}
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int n,k;
+	cout<<"Enter number of students: ";
+	cin>>n;
+	cout<<"Enter number of marks: ";
+	cin>>k;
+	st_Name S[10];int sum;
+	for(int i=0;i<n;i++){
+		sum=0;
+		cout<<"Enter a name of student: ";
+		cin>>S[i].st_name;
+		for (int j=0;j<k;j++){
+			cout<<"Enter mark["<<j+1<<"]: ";
+			cin>>S[i].ocenka[j];
+			sum+= S[i].ocenka[j];
+		}
+		S[i].sr_uspeh=sum/k;
+	}
+	
+	
+	RazmSort(S,n);
+	for(int i=0;i<n;i++){
+		cout<<S[i].st_name<<endl;
+	}
+	return 0;
+}
+
